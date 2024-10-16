@@ -34,7 +34,7 @@ FROM nginx:alpine AS runner
 COPY --from=builder /app/community-voting-system-monorepo/apps/client-web/dist /usr/share/nginx/html
 
 # 複製自定義的 NGINX 配置文件（可選）
-COPY nginx.conf /etc/nginx/nginx.conf
+COPY ./nginx.conf /etc/nginx/nginx.conf
 
 # 暴露 NGINX 的 80 端口
 EXPOSE 80

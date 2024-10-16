@@ -1,80 +1,67 @@
-# Rush monorepo 模板
+1. build client-web docker image
+```bash
+cd apps/client-web && docker build -f ./Dockerfile -t client-web .  --no-cache
+```
 
-快速開始：
+2. build admin-web docker image
+```bash
+# if you are not in the root directory
+# cd ../../ 
+ cd apps/admin-web && docker build -f ./Dockerfile -t admin-web .  --no-cache 
+```
+3. build api-server docker image
+```bash 
+cd apps/api-server && docker build -f ./Dockerfile -t api-server .  --no-cache
+```
 
-1. 請將「@community-voting-system」全域取代為對應的專案代號
-1. ws-main.code-workspace 為目前共用的 workspace，可以複製一個自行使用。例：cod 的 workspace 為 ws-cod.code-workspace
-1. VSCode 使用「檔案 -> 從檔案開啟工作區」，開啟 workspace 檔案
+4. run docker-compose
+```bash
+# if you are not in the root directory
+# cd ../../
+cd apps/docker && docker-compose up --build
+```
 
-## 專案概述
 
-本專案為基於 rush 的 monorepo，相關操作請詳閱 rush [文件](https://rushjs.io/zh-cn/pages/developer/everyday_commands/)
-
-專案前後端溝通基於 [ts-rest](https://ts-rest.com/docs/intro) 建立完成型別安全之 API。
-
-專案內容為：
-
-- packages/shared：定義傳輸層合約與資料
-
-  基於 TS，目前使用 tsup 編譯
-
-- apps/api-server：實作 API 的 server
-
-  基於 NestJS
-
-- apps/admin-web：管理系統頁面
-
-  基於 Vue
-
-### 快速建立資源
-
-推薦使用 [blueprint](https://marketplace.visualstudio.com/items?itemName=teamchilla.blueprint)
-
-每個專案中皆有 blueprint 腳本，可以自動產生 blueprint 專用之檔案，可以快速建立各類資源。
-
-collection-data 與 single-data 為範例資源：
-
-- collection-data 表示集合資源，例如：使用者、文章
-- single-data 表示單一資源，例如：系統設定、網站資訊
-
-目前 blueprint 腳本會基於此兩種資源建立藍圖，可以自行修改、新增腳本。
-
-## 腳本
-
-> 💡 推薦使用 VSCode「npm 指令碼」功能
->
-> ![npm npm 指令碼](doc/image.png)
->
-> 如上圖，就可以直接在畫面右下角快速選擇要執行的腳本
-
-root 中的 package.json 內含多個腳本
-
-- `dev:{project-id}`：快速開啟對應專案的開發環境
-
-  同執行自身專案中的 `npm run dev`
-
-- `rush:watch`：執行編譯相依套件
-
-  詳細說明請參閱 [watch mode](https://rushjs.io/zh-cn/pages/advanced/watch_mode/)
-
-- `rush:update`：安裝相依套件
-
-- `rush:build`：執行所有專案的編譯
-
-  同執行自身專案中的 `npm run build`
-
-- `rush:deploy`：根據 deploy.json 中設定，複製部屬用內容至 common/deploy 中，--overwrite 表示若有已存在資料夾則強制覆蓋
-
-  詳細說明請參閱 [Deploying projects](https://rushjs.io/pages/maintainer/deploying/)
-
-## 如何手動部屬網站
-
-> 正常情況不需要這麼做，統一走 CI/CD 流程即可。
-
-依序執行以下腳本：
-
-1. root rush:build：開始建構所有專案
-1. root rush:deploy：複製部屬檔案
-1. 手動刪除 common/deploy/{project-id}/package.json 中 workspace:* 項目
-1. 前往預計要部屬的專案（common/deploy/{project-id}）對應之 package.json，執行 deploy:xxx 腳本
-1. 等待 gcloud CLI 部屬完成。
+### docker swarm
+1. 前往 `apps/docker` 
+```bash
+cd apps/docker
+```
+2. 初始化 swarm
+```bash
+docker swarm init
+```
+2. 執行 `docker swarm` 
+```bash
+docker stack deploy -c docker-compose.yml cvs_stack
+```
+3. 檢查 Stack 狀態
+```bash
+# 部署完成後，你可以使用以下命令檢查 Stack 的狀態：
+docker stack ls
+```
+4. 刪除 Stack
+```bash
+docker stack rm cvs_stack
+```
+5. 刪除 network
+```bash
+docker network prune
+```
+6. worker 加入 swarm
+```bash
+# 在 manager node 上執行以下命令，取得 worker 加入 swarm 的指令：
+docker swarm join-token worker
+# 在 worker node 上執行上面的指令，即可加入 swarm。
+# 要在 manager node 上開放 port 2377 和 7946，以及 4789/udp (或是全開)
+# 防火牆或安全組規則中開放以下端口：
+# TCP 2377: 用於集群管理的通訊。這是 Swarm 管理節點和其他節點之間的主要通訊端口。
+# TCP 和 UDP 7946: 用於節點之間的網路通訊。
+# UDP 4789: 用於 Overlay 網路的數據傳輸（即容器之間跨節點的網路通訊）。
+```
+7. mannager 加入 swarm
+```bash
+# 在 manager node 上執行以下命令，取得 manager 加入 swarm 的指令：
+docker swarm join-token manager
+# 在 manager node 上執行上面的指令，即可加入 swarm。
+```

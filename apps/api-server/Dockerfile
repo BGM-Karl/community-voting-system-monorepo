@@ -53,3 +53,5 @@ EXPOSE 8080
 
 # 啟動應用，使用 npm 指令來執行
 CMD ["npm", "run", "start", "--prefix", "./api-server"]
+
+# $ docker build -f ./Dockerfile -t api-server .  --no-cache
