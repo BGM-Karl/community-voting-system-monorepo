@@ -2,7 +2,7 @@ version: '3'
 
 services:
   api-server:
-    image: my-app:latest
+    image: api-server:latest
     working_dir: /app
     environment:
       - PORT=8080
