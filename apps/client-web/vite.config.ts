@@ -16,7 +16,8 @@ import Unocss from 'unocss/vite';
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
   const isBuild = command === 'build';
-  const base = isBuild ? `/web/` : '/'
+  // const base = isBuild ? `/web/` : '/'
+  const base = '/';
 
   const legacyTargets = isBuild ? [
     'Android > 39',
