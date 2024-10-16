@@ -1,0 +1,5 @@
+dispatch:
+  - url: '*/_admin'
+    service: admin-web
+  - url: '*/_admin/*'
+    service: admin-web

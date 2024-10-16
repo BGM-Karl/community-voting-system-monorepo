@@ -1,0 +1,440 @@
+{
+	"info": {
+		"_postman_id": "76fde83c-431d-4746-8730-dd50f906cd5b",
+		"name": "CMS Core",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "23211103"
+	},
+	"item": [
+		{
+			"name": "存取授權",
+			"item": [
+				{
+					"name": "Firebase Auth 登入",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\": \"eyJhbGciOiJSUzI1NiIsImtpZCI6ImJlYmYxMDBlYWRkYTMzMmVjOGZlYTU3ZjliNWJjM2E2YWIyOWY1NTUiLCJ0eXAiOiJKV1QifQ.eyJuYW1lIjoi5p6X5piv6L6wIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hLS9BT2gxNEdoM1JNR1EycUtwdGlpczZrWUo2WEloX29aOGcyTV9zaTJlLVFlbW1nPXM5Ni1jIiwiaXNzIjoiaHR0cHM6Ly9zZWN1cmV0b2tlbi5nb29nbGUuY29tL2Ntcy1jb3JlLTIxMDgxMCIsImF1ZCI6ImNtcy1jb3JlLTIxMDgxMCIsImF1dGhfdGltZSI6MTY1MjcxMDA2NywidXNlcl9pZCI6Im5Qa3l5Y0tHMWtRaXM0YUdsbDh1eENYYUhLTDIiLCJzdWIiOiJuUGt5eWNLRzFrUWlzNGFHbGw4dXhDWGFIS0wyIiwiaWF0IjoxNjUyNzEwMDY4LCJleHAiOjE2NTI3MTM2NjgsImVtYWlsIjoicG9ueTIxNDBAbGl2ZW1haWwudHciLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiZmlyZWJhc2UiOnsiaWRlbnRpdGllcyI6eyJnb29nbGUuY29tIjpbIjExMDk4NDQzNzU5Njc1MzUxODA4NiJdLCJlbWFpbCI6WyJwb255MjE0MEBsaXZlbWFpbC50dyJdfSwic2lnbl9pbl9wcm92aWRlciI6Imdvb2dsZS5jb20ifX0.BGxDuZJ_QODfmKqtJY7nTAzUNVhU21_3utkWcQzltdkEBbywpI_tTYq3X1zP3EUtFweN14d34vO-qiyIWzuJ9ukxFtauy-ricTnTjiFzehkiOtxQWgfv8xSr_HwSwKWIgsMhx7ikn-tdfQrG9N1U7MZFbkV0-QtYM0xS7qU9XaV9ZcDC3XRnrTY4SFo59ZlWnfQqnFXIR2hEkNKMYUrprfwQcHRMJ_I0pj3Um-xYPx9cPDtWE4hIOjZTjuBsrLQH3OOBcON2XA2Ot5qoG3MX39bRQmyuD7iWAXmgIYdK2pVg2uRNSNDh2gk418BK3kkQBmXdzBtDR12AGMXGmt6Lug\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/auth/firebase",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"firebase"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "local 帳號登入",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"codfish\",\r\n    \"password\": \"codfish\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/auth/local",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"local"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "登出",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"codfish\",\r\n    \"password\": \"codfish\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/auth",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "帳號",
+			"item": [
+				{
+					"name": "新增帳號",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"codfish\",\r\n    \"name\": \"cod\",\r\n    \"password\": \"codfish\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/account",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"account"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得帳號清單",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-url}}/api/v1/accounts",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"accounts"
+							],
+							"query": [
+								{
+									"key": "skip",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "依 ID 取得帳號",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-url}}/api/v1/account/628156f5ef240bc13920dd7e",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"628156f5ef240bc13920dd7e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "依 ID 更新帳號資料",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"cod123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/account/6280bdba4b8595cc7f8f8e7e",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"6280bdba4b8595cc7f8f8e7e"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "依 ID 刪除帳號",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server-url}}/api/v1/account/6281016fe6f5daefc2b334ff",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"account",
+								"6281016fe6f5daefc2b334ff"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "使用者",
+			"item": [
+				{
+					"name": "取得自身資料",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-url}}/api/v1/user/self",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"self"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "權限規則",
+			"item": [
+				{
+					"name": "新增規則",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"admin\",\r\n    \"description\": \"\",\r\n    \"subjects\": [\r\n        {\r\n            \"name\": \"account\",\r\n            \"actions\": [\r\n                \"create\",\r\n                \"read\"\r\n            ]\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/role",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"role"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "範例資源",
+			"item": [
+				{
+					"name": "新增",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"doge\",\r\n    \"description\": \"\",\r\n    \"remark\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/ex",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ex"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得全部",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-url}}/api/v1/exs",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"exs"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "取得指定",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server-url}}/api/v1/ex/6319a5cf8d96012dd19d968d",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ex",
+								"6319a5cf8d96012dd19d968d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "編輯",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"coodfish\",\r\n    \"description\": \"\",\r\n    \"remark\": \"\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server-url}}/api/v1/ex/6319a5cf8d96012dd19d968d",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ex",
+								"6319a5cf8d96012dd19d968d"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "刪除指定",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server-url}}/api/v1/ex/6319a5cf8d96012dd19d968d",
+							"host": [
+								"{{server-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"ex",
+								"6319a5cf8d96012dd19d968d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server-url",
+			"value": "localhost:8080",
+			"type": "default"
+		}
+	]
+}

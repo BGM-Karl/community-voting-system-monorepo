@@ -1,0 +1,7 @@
+{
+  "omitPackageManager": true,
+  "pickFromScripts": [
+    "start",
+    "gcp-build"
+  ]
+}

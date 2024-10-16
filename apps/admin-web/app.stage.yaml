@@ -1,0 +1,15 @@
+runtime: nodejs20
+service: stage-admin-web
+
+automatic_scaling:
+  min_instances: 0
+  max_instances: 1
+
+handlers:
+  # 處理靜態目錄請求
+  - url: /_stage/_admin/(.*\..+)$
+    static_files: dist/\1
+    upload: dist/(.*\..+)$
+  - url: /.*
+    static_files: dist/index.html
+    upload: dist/index.html

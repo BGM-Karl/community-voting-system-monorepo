@@ -1,0 +1,59 @@
+version: '3'
+services:
+  # 前端 Client 部分
+  client-web:
+    image: nginx:latest
+    container_name: client-web
+    volumes:
+      - ../client-web/dist:/usr/share/nginx/html/client
+    restart: always
+
+  # 後台 Admin 部分
+  admin-web:
+    image: nginx:latest
+    container_name: admin-web
+    volumes:
+      - ../admin-web/dist:/usr/share/nginx/html/admin
+    restart: always
+
+  # 後端 NestJS API 部分
+  api-server:
+    image: node:18
+    container_name: api-server
+    working_dir: /app
+    volumes:
+      - ../api-server/isolate:/app
+    command: ["npm", "run", "start"]  # 假設你的編譯結果已經產生，並能直接啟動
+    environment:
+      - PORT=8080
+      - MONGO_RESOURCE=mongo:27017  # 將 MongoDB 連接設置為容器名稱
+
+    expose:
+      - 8080
+    restart: always
+
+
+  # MongoDB 服務
+  mongo:
+    image: mongo:latest
+    container_name: mongo
+    volumes:
+      - ../db:/data/db
+    restart: always
+
+
+  # Nginx 反向代理部分
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf   # 掛載 Nginx 配置檔案
+      - ../client-web/dist:/usr/share/nginx/html/client
+      - ../admin-web/dist:/usr/share/nginx/html/admin
+    ports:
+      - "80:80"
+    depends_on:
+      - client-web
+      - admin-web
+      - api-server
+    restart: always

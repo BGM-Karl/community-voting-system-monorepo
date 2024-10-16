@@ -1,0 +1,13 @@
+{
+  "files.eol": "\n",
+  "cSpell.words": [
+    "autopopulate",
+    "everlink",
+    "remeda",
+    "Singleblueprint",
+    "Singledata",
+    "unplugin",
+    "virtuals"
+  ],
+  "typescript.tsdk": "node_modules\\typescript\\lib"
+}

@@ -1,0 +1,17 @@
+@import ./quasar-variables
+
+@mixin color-class($class, $value)
+  .bg-#{$class}
+    background: $value
+  .text-#{$class}
+    color: $value
+  .border-#{$class}
+    border-color: $value
+
+@include color-class('main', $main)
+
+// 可讓 child 在 flex 容器中填滿高度並保留 scroll
+.flex-fill-scroll
+  flex: 1 1 auto
+  overflow-y: auto
+  height: 0
