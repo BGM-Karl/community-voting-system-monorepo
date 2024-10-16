@@ -14,7 +14,7 @@ services:
     restart: always
 
   mongo:
-    image: mongo:latest
+    image: mongo
     volumes:
       - ../db:/data/db
     environment:
