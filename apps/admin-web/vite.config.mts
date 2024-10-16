@@ -14,8 +14,8 @@ export default defineConfig(({ command, mode }) => {
     : undefined
 
   const stage = mode === 'staging' ? '/_stage' : ''
-  const base = isBuild ? `${stage}/_admin/` : '/'
-  // const base = '/'
+  // const base = isBuild ? `${stage}/_admin/` : '/'
+  const base = '/'
 
   return {
     base,
