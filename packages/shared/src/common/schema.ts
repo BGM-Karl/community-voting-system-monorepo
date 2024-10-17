@@ -3,10 +3,10 @@ import { z } from 'zod'
 
 export const objectIdSchema = z.coerce.string().regex(/^[0-9a-f]{24}$/)
 
-/** nestjs 不允許 controller 回傳 null、undefined，
- * 會自動轉換成空物件，也就是 {}
+/** NestJS does not allow controllers to return null or undefined,
+ * it will automatically convert them to an empty object, i.e., {}
  *
- * @deprecated 請不要使用，建議使用 contract.noBody()
+ * @deprecated Please do not use this, it is recommended to use contract.noBody() instead
  */
 export const emptyObjectSchema = z.object({})
 export type EmptyObject = FEmptyObject
@@ -14,12 +14,11 @@ export type EmptyObject = FEmptyObject
 export const timestampSchema = z.object({
   createdAt: z.string().datetime(),
   updatedAt: z.string().datetime().optional(),
-  /** 用於實現軟刪除 */
   deletedAt: z.string().datetime().optional(),
 })
 export interface Timestamp extends z.infer<typeof timestampSchema> { }
 
-/** 基於頁數的分頁資料 */
+/** Pagination data based on page numbers */
 export function definePaginatedDataSchema<Data>(dataSchema: z.ZodSchema<Data>) {
   return z.object({
     skip: z.coerce.number(),
@@ -28,12 +27,12 @@ export function definePaginatedDataSchema<Data>(dataSchema: z.ZodSchema<Data>) {
     data: z.array(dataSchema),
   })
 }
-/** 基於頁數的分頁資料 */
+/** Pagination data based on page numbers */
 export interface PaginatedData<Data> extends z.infer<
   ReturnType<typeof definePaginatedDataSchema<Data>>
 > { }
 
-/** 基於 Cursor 的分頁資料 */
+/** Pagination data based on Cursor */
 export function defineCursorPaginatedDataSchema<Data>(dataSchema: z.ZodSchema<Data>) {
   return z.object({
     /** data 內的資料不包含 startId 項目 */
@@ -42,7 +41,7 @@ export function defineCursorPaginatedDataSchema<Data>(dataSchema: z.ZodSchema<Da
     data: z.array(dataSchema),
   })
 }
-/** 基於 Cursor 的分頁資料 */
+/** Pagination data based on Cursor */
 export interface CursorCursorPaginatedData<Data> extends z.infer<
   ReturnType<typeof defineCursorPaginatedDataSchema<Data>>
 > { }

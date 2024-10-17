@@ -5,7 +5,7 @@ import { objectIdSchema, timestampSchema } from '../common/schema'
 import { userSchema } from '../user'
 
 /**
- * 使用 just-diff 實作
+ * Implemented using just-diff
  *
  * https://www.npmjs.com/package/just-diff
  */
@@ -17,10 +17,10 @@ const changeSchema = z.object({
 })
 export interface Change extends z.infer<typeof changeSchema> { }
 
-/** Log 紀錄 */
+/** Log record */
 export function defineLogSchema<Data>(dataSchema: z.ZodSchema<Data>) {
   return z.object({
-    /** 來源 ID */
+    /** Source ID */
     sourceId: objectIdSchema,
     oldData: dataSchema.optional(),
     changes: changeSchema.array(),
@@ -29,14 +29,14 @@ export function defineLogSchema<Data>(dataSchema: z.ZodSchema<Data>) {
     timestamp: timestampSchema,
   })
 }
-/** Log 紀錄 */
+/** Log record */
 export interface Log<Data = undefined> {
   readonly id: string;
-  /** 來源 ID */
+  /** Source ID */
   sourceId: string;
-  /** changes 套用前的資料 */
+  /** Data before changes were applied */
   oldData?: Data;
-  /** 變更內容 */
+  /** Change details */
   changes: Change[];
   description: string;
   editor?: User;

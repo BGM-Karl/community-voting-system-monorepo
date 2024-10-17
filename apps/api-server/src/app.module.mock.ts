@@ -7,8 +7,6 @@ import { AppController } from './app.controller'
 import { AppService } from './app.service'
 import { AuthModule } from './auth/auth.module'
 import { LoggerModule } from './logger/logger.module'
-import { CollectionDataModule } from './resource/collection-data/collection-data.module'
-import { SingleDataModule } from './resource/single-data/single-data.module'
 
 import { VotingEventModule } from './resource/voting-event/voting-event.module'
 import { UserModule } from './user/user.module'
@@ -30,8 +28,6 @@ import { UtilsModule } from './utils/utils.module'
       maxListeners: 40,
     }),
 
-    SingleDataModule,
-    CollectionDataModule,
   ],
   controllers: [AppController],
   providers: [AppService],
