@@ -37,7 +37,7 @@ interface VotingEvent {
   _id: string;
   title: string;
   description: string;
-  status: '未開始' | '進行中' | '已結束';
+  status: 'Not started' | 'In progress' | 'Ended';
   startTime: string;
   endTime: string;
 }
@@ -74,7 +74,7 @@ watch(votingEventId, () => {
 //     return;
 //   }
 //   votingEvent.value = votingEventItem
-//   if (votingEventItem.status === '已結束') {
+//   if (votingEventItem.status === 'Ended') {
 //     router.replace({
 //       name: RouteName.VOTING_RESULTS,
 //       params: { id: votingEventItem._id }
@@ -84,9 +84,9 @@ watch(votingEventId, () => {
 
 const getStatusColor = (status: string) => {
   switch (status) {
-    case '未開始': return 'blue';
-    case '進行中': return 'green';
-    case '已結束': return 'red';
+    case 'Not started': return 'blue';
+    case 'In progress': return 'green';
+    case 'Ended': return 'red';
     default: return 'grey';
   }
 };

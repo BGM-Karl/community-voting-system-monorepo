@@ -79,7 +79,7 @@ VotingEventSchema.plugin(mongooseAutopopulate)
 
 // status 虛擬屬性
 VotingEventSchema.virtual('status').get(function (this: VotingEventDocument) {
-  // 尚未開始
+  // 尚Not started
   if (dayjs().isBefore(this.timestamp.startAt)) {
     return 'Not started'
   }

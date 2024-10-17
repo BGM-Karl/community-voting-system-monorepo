@@ -53,9 +53,9 @@ const { state: votingEvents, isLoading, isReady, execute } = useAsyncState(async
 }, undefined)
 const getStatusColor = (status?: string) => {
   switch (status) {
-    case '未開始': return 'blue';
-    case '進行中': return 'green';
-    case '已結束': return 'red';
+    case 'Not started': return 'blue';
+    case 'In progress': return 'green';
+    case 'Ended': return 'red';
     default: return 'grey';
   }
 };
