@@ -1,7 +1,7 @@
 <template>
   <div class="p-4">
     <h1 class="text-2xl font-bold mb-4">
-      投票事件列表
+      List of voting events
     </h1>
     <q-inner-loading :showing="isLoading" />
     <q-list

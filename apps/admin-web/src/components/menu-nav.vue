@@ -40,19 +40,18 @@ type List = {
   }[];
 }[]
 
-/** 目前預期兩層，第一層是分類，第二層是按鈕 */
 const list: List = [
   {
-    label: '投票活動',
+    label: 'voting activity',
     items: [
-      { label: '投票活動列表', path: '/voting-events' },
+      { label: 'Voting event list', path: '/voting-events' },
     ],
   },
 
   {
-    label: '住戶管理',
+    label: 'resident management',
     items: [
-      { label: '住戶列表', path: '/members' },
+      { label: 'household list', path: '/members' },
     ],
   },
 

@@ -48,7 +48,7 @@ docker stack rm cvs_stack
 ```bash
 docker network prune
 ```
-6. worker 加入 swarm
+6. worker join swarm
 ```bash
 # Execute the following command on the manager node to get the command for a worker to join the swarm:
 docker swarm join-token worker
@@ -59,7 +59,7 @@ docker swarm join-token worker
 # TCP and UDP 7946: Used for network communication between nodes.
 # UDP 4789: Used for data transmission in the Overlay network (i.e., network communication between containers across nodes).
 ```
-7. mannager 加入 swarm
+7. Add a manager to the swarm
 ```bash
 # Execute the following command on the manager node to get the command for a manager to join the swarm:
 docker swarm join-token manager

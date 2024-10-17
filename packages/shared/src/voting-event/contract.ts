@@ -11,7 +11,7 @@ import { votingEventSchema } from './schema'
 
 const contract = initContract()
 
-// 建立 voting-event
+// Create voting-event
 export const createVotingEventDtoSchema = votingEventSchema.omit({
   id: true,
   timestamp: true,
@@ -20,14 +20,14 @@ export const createVotingEventDtoSchema = votingEventSchema.omit({
 }).extend({
   options: z.array(
     z.object({
-      /** 選項的內容 */
-      content: z.string().describe('選項的內容'),
+      /** Contents of options */
+      content: z.string().describe('content of option'),
     }),
-  ).describe('投票選項列表'),
-  /** 開始時間 */
-  startAt: z.string().datetime().describe('開始時間'),
-  /** 結束時間 */
-  endAt: z.string().datetime().describe('結束時間'),
+  ).describe('voting option list'),
+  /** Start time */
+  startAt: z.string().datetime().describe('start time'),
+  /** End time */
+  endAt: z.string().datetime().describe('end time'),
 }).partial({
 })
 const create = {
@@ -37,10 +37,10 @@ const create = {
   responses: {
     201: votingEventSchema,
   },
-  summary: '建立 voting-event',
+  summary: 'Create voting-event',
 } as const satisfies AppRoute
 
-// 取得 voting-event
+// Get voting-event
 const find = {
   method: 'GET',
   path: '/v1/voting-events',
@@ -49,15 +49,15 @@ const find = {
     200: definePaginatedDataSchema(
       votingEventSchema
         .extend({
-          /** 當前狀態 */
-          status: z.enum(['未開始', '進行中', '已結束']).describe('當前狀態'),
+          /** Current status */
+          status: z.enum(['Not started', 'In progress', 'Ended']).describe('Current status'),
         }),
     ),
   },
-  summary: '取得 voting-event',
+  summary: 'Get voting-event',
 } as const satisfies AppRoute
 
-// 取得指定 voting-event
+// Get the specified voting-event
 const findOne = {
   method: 'GET',
   path: '/v1/voting-events/:id',
@@ -66,15 +66,15 @@ const findOne = {
   }),
   responses: {
     200: votingEventSchema.extend({
-      /** 當前狀態 */
-      status: z.enum(['未開始', '進行中', '已結束']).describe('當前狀態'),
+      /** Current status */
+      status: z.enum(['Not started', 'In progress', 'Ended']).describe('Current status'),
     }),
     404: contract.noBody(),
   },
-  summary: '取得指定 voting-event',
+  summary: 'Get the specified voting-event',
 } as const satisfies AppRoute
 
-// 更新指定 voting-event
+// Update the specified voting-event
 const update = {
   method: 'PATCH',
   path: '/v1/voting-events/:id',
@@ -87,10 +87,10 @@ const update = {
     204: contract.noBody(),
     404: contract.noBody(),
   },
-  summary: '更新指定 voting-event',
+  summary: 'Update specified voting-event',
 } as const satisfies AppRoute
 
-// 刪除指定 voting-event
+// Delete the specified voting-event
 const remove = {
   method: 'DELETE',
   path: '/v1/voting-events/:id',
@@ -102,10 +102,10 @@ const remove = {
     200: votingEventSchema,
     404: contract.noBody(),
   },
-  summary: '刪除指定 voting-event',
+  summary: 'Delete the specified voting-event',
 } as const satisfies AppRoute
 
-// 指定 voting-event 投票
+// Specify voting-event to vote
 const vote = {
   method: 'POST',
   path: '/v1/voting-events/:id/vote',
@@ -113,8 +113,8 @@ const vote = {
     id: objectIdSchema,
   }),
   body: z.object({
-    /** 選項 id */
-    optionIdList: z.array(objectIdSchema).describe('選項 id'),
+    /** option id */
+    optionIdList: z.array(objectIdSchema).describe('option id'),
   }),
   responses: {
     200: votingEventSchema,
@@ -122,7 +122,7 @@ const vote = {
   },
 } as const satisfies AppRoute
 
-// 取得指定 voting-event log
+// Get the specified voting-event log
 const findLogs = {
   method: 'GET',
   path: '/v1/voting-events/:id/logs',
@@ -136,7 +136,7 @@ const findLogs = {
     ),
     404: contract.noBody(),
   },
-  summary: '取得指定 voting-event log',
+  summary: 'Get the specified voting-event log',
 } as const satisfies AppRoute
 
 export const votingEventContract = contract.router({

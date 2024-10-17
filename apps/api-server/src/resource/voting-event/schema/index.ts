@@ -8,17 +8,17 @@ import { VotingEventResult, VotingEventResultSchema } from './result'
 import { Timestamp, TimestampSchema } from './timestamp'
 
 type VotingEventOnDb = Omit<VotingEventOnZod, 'timestamp' | 'status'>
-
-// 投票活動
 @Schema({
   toObject: { getters: true, virtuals: true },
   toJSON: { getters: true, virtuals: true },
 })
+// status: z.enum(['Not started', 'In progress', 'Ended']).describe('Current status'),
+
 export class VotingEvent implements VotingEventOnDb {
   /** mongoose 原有的 id，但原本是 optional，這裡改為 required */
   id!: string
 
-  status: '未開始' | '進行中' | '已結束' = '未開始'
+  status: 'Not started' | 'In progress' | 'Ended' = 'Not started'
 
   @Prop()
   isEndedEarly: boolean = false
@@ -81,14 +81,14 @@ VotingEventSchema.plugin(mongooseAutopopulate)
 VotingEventSchema.virtual('status').get(function (this: VotingEventDocument) {
   // 尚未開始
   if (dayjs().isBefore(this.timestamp.startAt)) {
-    return '未開始'
+    return 'Not started'
   }
-  // 已結束
+  // Ended
   if (dayjs().isAfter(this.timestamp.endAt)) {
-    return '已結束'
+    return 'Ended'
   }
-  // 進行中
+  // In progress
   if (dayjs().isAfter(this.timestamp.startAt) && dayjs().isBefore(this.timestamp.endAt)) {
-    return '進行中'
+    return 'In progress'
   }
 })

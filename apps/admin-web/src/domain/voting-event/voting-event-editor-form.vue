@@ -9,41 +9,35 @@
       <q-card class="min-w-[30rem]">
         <q-card-section>
           <div class="mb-3 text-lg font-bold">
-            {{ props.title || '編輯會員角色' }}
-            <q-icon
-              name="help"
-              class="-mt-0.5 !text-gray-300"
-            >
-              <q-tooltip>說明</q-tooltip>
-            </q-icon>
+            {{ props.title}}
           </div>
 
           <div v-if="updateForm">
             <!-- Block1 Start -->
             <div class="basis-[calc(50%_-_20px)]">
               <div class="sticky left-0 top-[-1px] z-10 basis-full bg-white py-3 text-base font-bold">
-                {{ updateVotingEventDtoSchema.description || '基本資訊' }}
+                {{ updateVotingEventDtoSchema.description || 'Basic information' }}
               </div>
               <div class="flex flex-col gap-2">
-                <basic-form-layout label="基本資料">
+                <basic-form-layout label="Basic information">
                   <q-input
                     v-bind="basicUpdateInputOption('title')"
                     v-model="updateForm.title"
-                    label="標題"
+                    label="Title"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('description')"
                     v-model="updateForm.description"
-                    label="描述"
+                    label="describe"
                     type="textarea"
                   />
                   <div>
                     <q-input
                       v-bind="basicUpdateInputOption('startAt')"
                       v-model="updateForm.startAt"
-                      label="開始時間"
-                      :rules="[() => !!updateForm.startAt || '開始時間為必填']"
-                      hint="預設是現在時間"
+                      label="start time"
+                      :rules="[() => !!updateForm.startAt || 'start time為必填']"
+                      hint="The default is the current time"
                     />
                     <q-popup-proxy :breakpoint="2000">
                       <div class="flex flex-nowrap !max-w-[600px]">
@@ -69,9 +63,9 @@
                     <q-input
                       v-bind="basicUpdateInputOption('endAt')"
                       v-model="updateForm.endAt"
-                      label="結束時間"
-                      :rules="[() => !!updateForm.endAt || '結束時間為必填']"
-                      hint="預設是現在時間+5分鐘"
+                      label="end time"
+                      :rules="[() => !!updateForm.endAt || 'end time為必填']"
+                      hint="The default is current time + 5 minutes"
                     />
                     <q-popup-proxy :breakpoint="2000">
                       <div class="flex flex-nowrap !max-w-[600px]">
@@ -93,38 +87,38 @@
                     </q-popup-proxy>
                   </div>
                 </basic-form-layout>
-                <basic-form-layout label="選項參數">
+                <basic-form-layout label="option parameters">
                   <q-input
                     v-bind="basicUpdateInputOption('maxSelectableOptions')"
                     v-model.number="updateForm.maxSelectableOptions"
-                    label="最大選擇數"
+                    label="Maximum number of choices"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('requiredParticipationRate')"
                     v-model.number="updateForm.requiredParticipationRate"
-                    label="通過住戶參與人數比例"
+                    label="Participation ratio through households"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('requiredWeightRate')"
                     v-model.number="updateForm.requiredWeightRate"
-                    label="通過住戶參與權重比例"
+                    label="Through household participation weight ratio"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('totalHouseholds')"
                     v-model.number="updateForm.totalHouseholds"
-                    label="全部住戶人數"
+                    label="Total number of households"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('totalWeight')"
                     v-model.number="updateForm.totalWeight"
-                    label="全部住戶人數權重"
+                    label="Total number of households weight"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('options', true)"
                     :model-value="(updateForm.options ?? []).map((v) => v.content).join(', ')"
-                    label="選項"
-                    hint="請用逗號分隔"
-                    :rules="[() => (updateForm.options ?? []).length > 1 || '選項至少要有兩個']"
+                    label="voting options"
+                    hint="Please separate with commas"
+                    :rules="[() => (updateForm.options ?? []).length > 1 || 'There must be at least two options']"
                     @update:model-value="updateForm.options = ($event as string).split(',').map((v) => ({ content: v.trim() }))"
                   />
                 </basic-form-layout>
@@ -137,7 +131,7 @@
           <div class="w-full flex gap-2 pb-3 pr-2">
             <q-btn
               color="primary"
-              label="清除"
+              label="Clear"
               flat
               @click="
                 emit('reset'); handleReset();
@@ -147,14 +141,14 @@
             <q-btn
               v-close-popup
               color="primary"
-              label="取消"
+              label="Cancel"
               class="w-20"
               flat
             />
             <q-btn
               type="submit"
               color="primary"
-              label="確認"
+              label="ok"
               class="w-20"
             />
           </div>
@@ -236,8 +230,8 @@ async function handleSubmit() {
   updateForm.value.endAt = dayjs(updateForm.value.endAt).toISOString()
   if (
     (await confirmDialog({
-      title: '是否繼續？',
-      message: '確定要編輯嗎？',
+      title: 'Do you want to continue? ',
+      message: 'Are you sure you want to edit? ',
       cancel: true,
     })) === false
   ) {

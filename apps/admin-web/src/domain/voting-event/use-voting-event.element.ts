@@ -33,7 +33,6 @@ export function useVotingEventElement<
       InstanceType<typeof QTable>['columns']
     >[number]
 
-    // 基本設定
     const tableRef = ref<QTable | undefined>()
     const columns = ref<TableColumn[]>([])
     const pagination = ref({
@@ -43,11 +42,7 @@ export function useVotingEventElement<
       rowsPerPage: 50,
       rowsNumber: 50,
     })
-    /**
-     * 因為如果用這個會造成vue 自動解包 ref 的問題
-     * const rows: Ref<UnwrapRefSimple<SingleDatum>[]>，導致型別推導會有問題，所以改用 as Ref<SingleDatum[]>
-     * - https://stackoverflow.com/questions/69813587/vue-unwraprefsimplet-generics-type-cant-assignable-to-t-at-reactive
-     */
+
     const rows = ref<Array<VotingEvent['basic']>>([])
     // const rows = ref([]) as Ref<VotingEventList['data']>;
     const selectedRows = ref<Array<VotingEvent['basic']>>([])
@@ -73,7 +68,7 @@ export function useVotingEventElement<
   }
 
   /**
-   * 用dialog 打開 creator form
+   * Open creator form using dialog
    */
   function handleOpenCreatorDialog(config: {
     handleRefreshTableData?: () => void;
@@ -81,17 +76,17 @@ export function useVotingEventElement<
     const dialog = openUsingDialog(
       VotingEventCreatorForm,
       {
-        title: '新增',
+        title: 'Add',
         onSubmit: async (val: any) => {
           Loading.show({
-            message: '建立中...',
+            message: 'Under creation...',
           })
           const [error, result] = await to(votingEventApi.create(val))
           Loading.hide()
           if (error) {
             Notify.create({
               type: 'negative',
-              message: `新增失敗！${error.message}`,
+              message: `Add failed!${error.message}`,
             })
             return
           }
@@ -99,13 +94,13 @@ export function useVotingEventElement<
           config?.handleRefreshTableData?.()
           Notify.create({
             type: 'positive',
-            message: '更新成功',
+            message: 'Update successful',
           })
         },
         onError: (error: Error) => {
           Notify.create({
             type: 'negative',
-            message: `新增失敗！${error.message}`,
+            message: `Add failed!${error.message}`,
           })
         },
       } as any,
@@ -113,9 +108,7 @@ export function useVotingEventElement<
     )
   }
 
-  /**
-   * 用 dialog 打開 update form
-   */
+  /** Use dialog to open update form   */
   function handleOpenEditorDialog(config: {
     originalBaseFormData: VotingEvent['basic'];
     handleRefreshTableData?: () => void;
@@ -123,11 +116,11 @@ export function useVotingEventElement<
     const dialog = openUsingDialog(
       VotingEventEditorForm,
       {
-        title: '編輯',
+        title: 'edit',
         originalBaseFormData: config.originalBaseFormData,
         onSubmit: async (val: any) => {
           Loading.show({
-            message: '更新中...',
+            message: 'Updating...',
           })
           const [error, result] = await to(
             votingEventApi.update(
@@ -139,7 +132,7 @@ export function useVotingEventElement<
           if (error) {
             Notify.create({
               type: 'negative',
-              message: `更新失敗！${error.message}`,
+              message: `Update failed!${error.message}`,
             })
             return
           }
@@ -147,13 +140,13 @@ export function useVotingEventElement<
           config?.handleRefreshTableData?.()
           Notify.create({
             type: 'positive',
-            message: '更新成功',
+            message: 'Update successful',
           })
         },
         onError: (error: Error) => {
           Notify.create({
             type: 'negative',
-            message: `更新失敗！${error.message}`,
+            message: `Update failed!${error.message}`,
           })
         },
       } as any,
@@ -161,7 +154,7 @@ export function useVotingEventElement<
     )
   }
 
-  /** 開啟刪除 confirm dialog */
+  /** Enable deletion confirm dialog */
   function handleOpenDeleteDialog(config: {
     ids: string[];
     handleRefreshTableData?: () => void;
@@ -170,18 +163,18 @@ export function useVotingEventElement<
     if (config.ids.length === 0) {
       Notify.create({
         type: 'warning',
-        message: '尚未選擇刪除項目',
+        message: 'No items selected for deletion yet',
       })
       return
     }
 
     Dialog.create({
-      title: `是否繼續？`,
-      message: `即將刪除選擇的資料，是否繼續？`,
+      title: `Continue?`,
+      message: `The selected data will be deleted. Do you want to continue?`,
       cancel: true,
     }).onOk(async () => {
       Loading.show({
-        message: '刪除中...',
+        message: 'Deleting...',
       })
       await Promise.allSettled(
         config.ids.map((id) => votingEventApi.remove({ id })),
@@ -190,14 +183,14 @@ export function useVotingEventElement<
           config?.handleRefreshTableData?.()
           Notify.create({
             type: 'positive',
-            message: '刪除成功',
+            message: 'Delete successfully',
           })
           config?.handleClearSelectedRows?.()
         })
         .catch((error) => {
           Notify.create({
             type: 'negative',
-            message: `刪除失敗！${error.message}`,
+            message: `Deletion failed!${error.message}`,
           })
         })
 
@@ -206,14 +199,9 @@ export function useVotingEventElement<
   }
 
   return {
-    // 基本資料
     getTableInfo,
-    // 建立
     handleOpenCreatorDialog,
-    // 編輯
     handleOpenEditorDialog,
-    // 刪除
     handleOpenDeleteDialog,
-
   }
 }

@@ -92,7 +92,7 @@ export interface Props {
   message?: string;
   /**
    * 按鈕
-   * @default 確定(y)、取消(n)
+   * @default 確定(y)、Cancel(n)
    */
   actions?: Action[];
 }
@@ -122,12 +122,12 @@ const defaultProps: Required<Props> = {
   actions: [
     {
       action: 'n',
-      label: '取消',
+      label: 'Cancel',
       ...defaultAction,
     },
     {
       action: 'y',
-      label: '確認',
+      label: 'ok',
       ...defaultAction,
     },
   ],

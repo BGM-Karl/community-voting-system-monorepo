@@ -24,7 +24,6 @@ export default defineConfig(({ command, mode }) => {
     },
     css: {
       preprocessorOptions: {
-        // FIX: 會導致 [sass] Can't find stylesheet to import.，待確認原因
         // sass: {
         //   api: 'modern-compiler', // or "modern"
         // },
@@ -32,7 +31,6 @@ export default defineConfig(({ command, mode }) => {
     },
     plugins: [
       VueRouter({
-        // 忽略 _ 開頭的檔案
         filePatterns: ['**/*', '!**/_*'],
       }),
       // VueDevTools(),

@@ -9,9 +9,9 @@ import App from './App.vue'
 
 installQuasarPlugin()
 
-describe('app 入口組件', () => {
-  describe('測試基本內容', () => {
-    it('是否包含「管理系統」文字', () => {
+describe('app Entry Component', () => {
+  describe('test Basic Content', () => {
+    it('contains the text "Management System"', () => {
       const wrapper = mount(App, {
         global: {
           plugins: [
@@ -24,7 +24,7 @@ describe('app 入口組件', () => {
         },
       })
 
-      expect(wrapper.text()).toContain('管理系統')
+      expect(wrapper.text()).toContain('mamagement-system')
     })
   })
 })

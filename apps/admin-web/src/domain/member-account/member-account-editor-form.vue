@@ -9,44 +9,38 @@
       <q-card class="min-w-[30rem]">
         <q-card-section>
           <div class="mb-3 text-lg font-bold">
-            {{ props.title || '編輯會員角色' }}
-            <q-icon
-              name="help"
-              class="-mt-0.5 !text-gray-300"
-            >
-              <q-tooltip>說明</q-tooltip>
-            </q-icon>
+            {{ props.title }}
           </div>
 
           <div v-if="updateForm">
             <!-- Block1 Start -->
             <div class="basis-[calc(50%_-_20px)]">
               <div class="sticky left-0 top-[-1px] z-10 basis-full bg-white py-3 text-base font-bold">
-                {{ updateMemberAccountDtoSchema.description || '基本資訊' }}
+                {{ updateMemberAccountDtoSchema.description || 'Basic information' }}
               </div>
               <div class="flex flex-col gap-2">
-                <basic-form-layout label="基本資料">
+                <basic-form-layout label="Basic information">
                   <q-input
                     v-bind="basicUpdateInputOption('name')"
                     v-model="updateForm.name"
-                    label="名稱"
-                    :hint="`帳號：${props.originalBaseFormData.username}`"
+                    label="Household name"
+                    :hint="`username：${props.originalBaseFormData.username}`"
                   />
 
                   <q-input
                     v-bind="basicUpdateInputOption('password')"
                     v-model="updateForm.password"
-                    label="密碼"
+                    label="password"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('weight')"
                     v-model.number="updateForm.weight"
-                    label="權重"
+                    label="weight"
                   />
                   <q-input
                     v-bind="basicUpdateInputOption('description')"
                     v-model="updateForm.description"
-                    label="描述"
+                    label="describe"
                     type="textarea"
                   />
                 </basic-form-layout>
@@ -59,7 +53,7 @@
           <div class="w-full flex gap-2 pb-3 pr-2">
             <q-btn
               color="primary"
-              label="清除"
+              label="Clear"
               flat
               @click="
                 emit('reset'); handleReset();
@@ -69,14 +63,14 @@
             <q-btn
               v-close-popup
               color="primary"
-              label="取消"
+              label="Cancel"
               class="w-20"
               flat
             />
             <q-btn
               type="submit"
               color="primary"
-              label="確認"
+              label="ok"
               class="w-20"
             />
           </div>
@@ -155,8 +149,8 @@ async function handleReset() {
 async function handleSubmit() {
   if (
     (await confirmDialog({
-      title: '是否繼續？',
-      message: '確定要編輯嗎？',
+      title: 'Do you want to continue? ',
+      message: 'Are you sure you want to edit? ',
       cancel: true,
     })) === false
   ) {

@@ -7,7 +7,6 @@ declare module '*.vue' {
   export default component
 }
 
-/** 處理響應式圖片引入格式 */
 declare module '*&imagetools' {
   /**
    * actual types

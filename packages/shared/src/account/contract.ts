@@ -80,7 +80,7 @@ const update = {
   summary: '更新指定 account',
 } satisfies AppRoute
 
-// 刪除指定 account
+// delete指定 account
 const remove = {
   method: 'DELETE',
   path: '/v1/accounts/:id',
@@ -92,7 +92,7 @@ const remove = {
     200: emptyObjectSchema,
     404: emptyObjectSchema,
   },
-  summary: '刪除指定 account',
+  summary: 'delete指定 account',
 } satisfies AppRoute
 
 export const accountContract = c.router({

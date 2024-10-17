@@ -12,7 +12,7 @@
           />
 
           <span class="text-xl font-medium">
-            管理系統
+            mamagement-system
           </span>
         </q-toolbar-title>
 
@@ -47,14 +47,6 @@
       </q-page>
     </q-page-container>
 
-    <!-- 登入 -->
-    <!-- <q-dialog
-      v-if="!isLoading"
-      :model-value="!mainStore.user"
-      persistent
-    >
-      <login-form />
-    </q-dialog> -->
   </q-layout>
 </template>
 
@@ -67,18 +59,16 @@ import { version } from '../package.json'
 import MenuNav from './components/menu-nav.vue'
 
 const $q = useQuasar()
-/** 自動映射 icon，加上 sym_r 前綴。https://quasar.dev/vue-components/icon#custom-mapping */
 $q.iconMapFn = (iconName) => ({
   icon: iconName.includes('sym_r') ? iconName : `sym_r_${iconName}`,
 })
 
 const router = useRouter()
 
-// unplugin-vue-router 會自動提供 route path 列舉
 router.push('')
 
 watchEffect(() => {
-  document.title = `管理系統 v${version}`
+  document.title = `mamagement-system v${version}`
 })
 
 const [drawerVisible, toggleDrawerVisible] = useToggle(true)

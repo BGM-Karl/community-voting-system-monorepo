@@ -1,46 +1,45 @@
-# 第一階段: 構建 admin-web 應用
+# Stage 1: Build the admin-web application
 FROM node:20 AS builder
 
-# 設定工作目錄
+# Set working directory
 WORKDIR /app
 
-# git clone 專案
+# git clone project
 RUN git clone https://github.com/BGM-Karl/community-voting-system-monorepo.git
 
-# 安裝 pnpm (假設 Rush.js 專案使用 pnpm)
+# Install pnpm (assuming the Rush.js project uses pnpm)
 RUN npm install -g pnpm
 
-# 安裝 Rush.js
+# Install Rush.js
 RUN npm install -g @microsoft/rush
 
-# 設定工作目錄
+# Set working directory
 WORKDIR /app/community-voting-system-monorepo
 
-# 安裝專案依賴
+# Install project dependencies
 RUN rush update
 
-# 打包 shared 模組
+# Build the shared module
 WORKDIR /app/community-voting-system-monorepo/packages/shared
 RUN rushx build
 
-# 打包 admin-web 應用
+# Build the admin-web application
 WORKDIR /app/community-voting-system-monorepo/apps/admin-web
 RUN rushx build
 
-# 第二階段: 設置 NGINX 並運行服務
+# Stage 2: Set up NGINX and run the service
 FROM nginx:alpine AS runner
 
-# 複製打包好的 admin-web 文件到 NGINX 的靜態服務目錄
+# Copy the built admin-web files to NGINX's static service directory
 COPY --from=builder /app/community-voting-system-monorepo/apps/admin-web/dist /usr/share/nginx/html
 
-# 複製自定義的 NGINX 配置文件（可選）
+# Copy custom NGINX configuration file (optional)
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# 暴露 NGINX 的 80 端口
+# Expose NGINX's port 80
 EXPOSE 80
 
-# 啟動 NGINX
+# Start NGINX
 CMD ["nginx", "-g", "daemon off;"]
-
 
 # $ docker build -f ./Dockerfile -t admin-web .  --no-cache

@@ -19,7 +19,7 @@ export class LocalStrategy extends PassportStrategy(Strategy, 'local') {
     )
 
     if (!account) {
-      throw new HttpException('帳號密碼錯誤', HttpStatus.BAD_REQUEST)
+      throw new HttpException('username or password is wrong', HttpStatus.BAD_REQUEST)
     }
 
     const user: RequestUser = {

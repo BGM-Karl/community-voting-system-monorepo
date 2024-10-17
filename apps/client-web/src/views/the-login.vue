@@ -6,15 +6,15 @@
     >
       <div class="px-6 sm:px-0">
         <div class="text-center text-lg font-bold font-medium text-[#585858]">
-          登入會員
+          LOGIN
         </div>
         <div>
           <div class="text-sm font-normal text-[#21272A]">
-            帳號
+            username
           </div>
           <q-input
             v-model="data.username"
-            placeholder="請輸入手機號碼"
+            placeholder="Please enter username"
             filled
             class="mt-2 w-full"
             :autofocus="data.username.length === 0"
@@ -23,23 +23,23 @@
             <q-toggle
               v-model="rememberMeToggle"
               dense
-              label="記住我"
+              label="remember me"
             />
           </div>
         </div>
 
         <div class="mt-2">
           <div class="text-sm font-normal text-[#21272A]">
-            密碼
+            password
           </div>
           <q-input
             v-model="data.password"
             :autofocus="data.username.length > 0 && data.password.length === 0"
-            placeholder="請輸入密碼"
+            placeholder="Please enter password"
             filled
             :type="pswInputType"
             class="mt-2 w-full"
-            :rules="[(val) => val.length > 0 || '請輸入密碼']"
+            :rules="[(val:any) => val.length > 0 || 'Please enter password']"
           >
             <template #default>
               <div class="h-full flex flex-nowrap items-center pr-4">
@@ -68,14 +68,14 @@
         </div>
 
         <q-btn
-          label="登入"
+          label="Login"
           unelevated
           class="rounded-s mt-6 w-full border-2 border-[#EEEEEE] border-solid py-2 font-semibold"
           type="submit"
         />
         <q-btn
           v-if="false"
-          label="忘記密碼"
+          label="forget the password"
           color="primary"
           flat
           unelevated
@@ -117,7 +117,7 @@ const data = ref({
   password: '',
 });
 
-// 記住我
+// remember me
 watch(() => rememberMeToggle.value, (value) => {
   if (value) {
     localStorage.setItem('memberUserName', data.value.username);

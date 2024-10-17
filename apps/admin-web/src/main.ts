@@ -14,7 +14,6 @@ import {
 } from 'quasar'
 
 import iconSet from 'quasar/icon-set/material-symbols-rounded'
-import quasarLang from 'quasar/lang/zh-TW'
 // Import icon libraries
 import '@quasar/extras/roboto-font/roboto-font.css'
 
@@ -22,7 +21,6 @@ import '@quasar/extras/material-symbols-rounded/material-symbols-rounded.css'
 
 // Import Quasar css
 import 'quasar/src/css/index.sass'
-import 'dayjs/locale/zh-tw'
 
 // Tailwind CSS
 // import './index.css';
@@ -34,11 +32,8 @@ import App from './App.vue'
 
 // Uno CSS
 import 'virtual:uno.css'
-// 自訂樣式
 import './style/animate.sass'
 import './style/global.sass'
-
-dayjs.locale('zh-tw')
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,7 +48,6 @@ createApp(App)
       Loading,
       Meta,
     },
-    lang: quasarLang,
     iconSet,
   } as QuasarPluginOptions)
   .use(createPinia())

@@ -1,6 +1,6 @@
 <template>
   <div class="flex-col">
-    我是首頁
+    I am the home page
   </div>
 </template>
 

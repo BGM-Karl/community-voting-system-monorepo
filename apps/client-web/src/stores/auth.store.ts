@@ -68,7 +68,7 @@ export const useAuthStore = defineStore('auth', () => {
     if (result.status === 200) {
       if (!disableNotify) {
         Notify.create({
-          message: '登入成功',
+          message: 'Login successful',
           color: 'positive',
         });
       }
@@ -81,11 +81,11 @@ export const useAuthStore = defineStore('auth', () => {
     else {
       if (!disableNotify) {
         Notify.create({
-          message: '登入失敗，請檢查帳號密碼',
+          message: 'Username or password is wrong',
           color: 'negative',
         });
       }
-      throw new Error('登入失敗');
+      throw new Error('Login failed');
     }
   }
 

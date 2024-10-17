@@ -184,10 +184,10 @@ export class AccountController {
 
       const [error, result] = await to(this.accountService.remove(id))
       if (error) {
-        this.loggerService.error(`刪除帳號 ID ${id} 錯誤 : ${error}`)
+        this.loggerService.error(`delete帳號 ID ${id} 錯誤 : ${error}`)
 
         throw new HttpException(
-          '刪除資料發生錯誤，請稍後再試',
+          'delete資料發生錯誤，請稍後再試',
           HttpStatus.INTERNAL_SERVER_ERROR,
         )
       }

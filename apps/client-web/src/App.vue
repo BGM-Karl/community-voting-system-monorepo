@@ -14,7 +14,7 @@
           @click="goBack"
         />
         <q-toolbar-title>
-          區權投票系統
+          community-voting-system-client
         </q-toolbar-title>
         <template v-if="route.name !== RouteName.LOGIN">
           <q-btn
@@ -79,11 +79,11 @@ router.isReady().then(async () => {
     else {
       if (currentRoute.name === 'login') {
         $q.dialog({
-          title: '歡迎使用區權投票系統',
-          message: '請選擇您感興趣的投票事件',
+          title: 'Welcome to the District Rights Voting System',
+          message: 'Please select the voting event you are interested in',
           persistent: true,
-          ok: '進入投票',
-          cancel: '系統說明文件',
+          ok: 'Enter the vote',
+          cancel: 'System description file',
         })
           .onCancel(() => {
             window.open('https://capable-fear-dae.notion.site/11cc3123f68f80659578cbeaee9759b2?pvs=4', '_blank');
@@ -116,7 +116,7 @@ const handleLogout = () => {
 };
 
 useMeta(() => ({
-  title: `區權投票系統`,
+  title: `community-voting-system-client`,
   // eslint-disable-next-line no-undef
   titleTemplate: (title) => `${title} v${version}`,
 }));

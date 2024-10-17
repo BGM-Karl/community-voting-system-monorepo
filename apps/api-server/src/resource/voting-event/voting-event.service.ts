@@ -60,7 +60,7 @@ export class VotingEventService {
   async vote(userId: string, id: string, dto: VotingEventContract['request']['vote']['body']) {
     const [findUserError, user] = await to(this.accountService.findById(userId))
     if (findUserError || !user) {
-      console.error(`投票失敗: ${findUserError}`)
+      console.error(`Vote failed: ${findUserError}`)
       return
     }
 
@@ -79,7 +79,7 @@ export class VotingEventService {
       }
     }
 
-    const additionalWeight = user.weight // 增加的權重
+    const additionalWeight = user.weight // 增加的weight
     const optionId = dto.optionIdList[0]
     if (!optionId) {
       throw new Error('optionId is required')
@@ -103,7 +103,7 @@ export class VotingEventService {
       },
     ]))
     if (error) {
-      console.error(`投票失敗: ${error}`)
+      console.error(`Vote failed: ${error}`)
       return
     }
     if (results.length > 0 && results[0].optionResults.length > 0) {
@@ -130,7 +130,7 @@ export class VotingEventService {
         },
       ))
       if (error) {
-        console.error(`投票結果更新失敗: ${error}`)
+        console.error(`Voting results更新失敗: ${error}`)
         return
       }
     }
@@ -169,7 +169,7 @@ export class VotingEventService {
           },
         ))
         if (error) {
-          console.error(`建立投票結果失敗: ${error}`)
+          console.error(`建立Voting results失敗: ${error}`)
           return
         }
       }
@@ -226,6 +226,10 @@ export class VotingEventService {
         updatedAt: this.utilsService.getDate(),
       },
     }
+    if (dto.startAt)
+      updateData['timestamp.startAt'] = dto.startAt
+    if (dto.endAt)
+      updateData['timestamp.endAt'] = dto.endAt
 
     const flatData = flat(updateData, { safe: true }) as any
     const newData = await this.model

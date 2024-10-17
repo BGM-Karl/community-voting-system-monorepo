@@ -28,14 +28,14 @@
           />
         </div>
         <p class="text-sm text-gray-600 mb-4">
-          您可以選擇最多 {{ votingEvent.maxSelectableOptions }} 個選項
+          You can select up to {{ votingEvent.maxSelectableOptions }}  option
         </p>
         <q-btn
           type="submit"
           color="primary"
           :disable="!isValidSelection"
         >
-          提交投票
+          vote
         </q-btn>
       </form>
     </div>
@@ -71,7 +71,7 @@ const {
   isReady
 } = useAsyncState(async () => {
   const result = await getVotingEvent(votingEventId.value);
-  if (result?.status === '已結束') {
+  if (result?.status === 'Ended') {
     router.replace({
       name: RouteName.VOTING_RESULTS,
       params: { id: votingEventId.value }
@@ -99,13 +99,13 @@ const submitVote = async () => {
       }
     }));
 
-    console.log('投票結果', result);
+    console.log('Voting results', result);
 
     if (error) {
-      console.error('投票失敗', error);
+      console.error('Vote failed', error);
       $q.notify({
         type: 'negative',
-        message: '投票失敗'
+        message: 'Vote failed'
       });
       return;
     }
@@ -121,7 +121,7 @@ const submitVote = async () => {
     else if (result.status === 401) {
       $q.notify({
         type: 'negative',
-        message: '投票失敗，請先登入'
+        message: 'Vote failed，請先登入'
       });
       router.push({ name: RouteName.LOGIN });
       return;
@@ -129,7 +129,7 @@ const submitVote = async () => {
     else if (get(result, 'body.message', undefined)) {
       $q.notify({
         type: 'negative',
-        message: `投票失敗 ${get(result, 'body.message', '未知錯誤')}`
+        message: `Vote failed ${get(result, 'body.message', '未知錯誤')}`
       });
     }
     await promiseTimeout(800);

@@ -1,7 +1,7 @@
 /** 各類表單驗證 function FP 版本 */
 
-import { isNil } from 'lodash-es'
 import type { ValidationRule } from 'quasar'
+import { isNil } from 'lodash-es'
 
 /** 建立符合 Quasar field rule 參數 */
 export function createRule(rules: any[], message: string) {

@@ -48,7 +48,7 @@ export class AuthController {
         this.loggerService.error('取得帳號失敗')
         this.loggerService.error(error)
         throw new HttpException(
-          `登入錯誤，請稍後再試`,
+          `Login error, please try again later`,
           HttpStatus.INTERNAL_SERVER_ERROR,
         )
       }
@@ -89,10 +89,9 @@ export class AuthController {
       // 取得帳號
       const [error, account] = await to(this.accountService.findById(user.id))
       if (error) {
-        this.loggerService.error('取得帳號失敗')
         this.loggerService.error(error)
         throw new HttpException(
-          `登入錯誤，請稍後再試`,
+          `Login error, please try again later`,
           HttpStatus.INTERNAL_SERVER_ERROR,
         )
       }

@@ -1,7 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose'
 import { HydratedDocument } from 'mongoose'
 
-// 選項的投票結果
+// 選項的Voting results
 @Schema({ toObject: { getters: true, virtuals: true }, toJSON: { getters: true, virtuals: true }, _id: false })
 export class VotingEventOptionResult {
   @Prop()

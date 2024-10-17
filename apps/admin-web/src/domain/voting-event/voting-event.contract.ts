@@ -31,8 +31,8 @@ export const votingEventCreatorFormDefault: VotingEvent['request']['create']['bo
   maxSelectableOptions: 0,
   totalHouseholds: 0,
   totalWeight: 0,
-  requiredParticipationRate: 0.5,
-  requiredWeightRate: 0.5,
+  requiredParticipationRate: 0.75,
+  requiredWeightRate: 0.75,
   // YYYY-MM-DD HH:mm
   startAt: dayjs().format('YYYY-MM-DD HH:mm'),
   endAt: dayjs().add(5, 'minutes').format('YYYY-MM-DD HH:mm'),

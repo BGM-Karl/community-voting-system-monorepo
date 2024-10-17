@@ -186,7 +186,7 @@ describe.skip('votingEventService', () => {
       ).rejects.toThrowError(RemoveError.TARGET_DOES_NOT_EXIST)
     })
 
-    it('刪除建立資料', async () => {
+    it('delete建立資料', async () => {
       const params: VotingEventContract['request']['create']['body'] = {
         options: [],
         description: '一場測試的投票',

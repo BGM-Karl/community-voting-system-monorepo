@@ -57,7 +57,6 @@ describe('votingEvent e2e', () => {
         providers: [],
         controllers: [],
       })
-      // JwtGuard 直接放行（如果需要測試登入，請自行修改）
       .overrideGuard(JwtGuard)
       .useClass(JwtGuardMock)
       // 關閉 CacheInterceptor
@@ -86,10 +85,6 @@ describe('votingEvent e2e', () => {
     const collections = await mongoConnection.db?.collections() ?? []
     await Promise.allSettled(
       Object.values(collections).map((collection) => {
-        /** 刻意不清空 accounts collection，保留 mock 使用者資料
-         *
-         * 方便登入相關測試
-         */
         if (collection.collectionName === 'accounts')
           return undefined
         return collection.deleteMany({})
@@ -111,7 +106,7 @@ describe('votingEvent e2e', () => {
         title: '一場測試的投票',
         maxSelectableOptions: 0,
         totalHouseholds: 0,
-        totalWeight: 0',
+        totalWeight: 0,
         startAt: dayjs().toISOString(),
         endAt: dayjs().add(14, 'day').toISOString(),
       }
@@ -234,12 +229,12 @@ describe('votingEvent e2e', () => {
     })
   })
 
-  describe('刪除指定 voting-event', () => {
+  describe('delete指定 voting-event', () => {
     it('目標 ID 不存在', async () => {
       await votingEventApi.remove('639709b56f4c80dd5fd48a1f', 404)
     })
 
-    it('刪除資料', async () => {
+    it('delete資料', async () => {
       const params: VotingEventContract['request']['create']['body'] = {
         options: [],
         description: '一場測試的投票',
@@ -258,7 +253,7 @@ describe('votingEvent e2e', () => {
       expect(newData.timestamp.deletedAt).toBeDefined()
     })
 
-    it('刪除資料後，find 無法取得', async () => {
+    it('delete資料後，find 無法取得', async () => {
       const params: VotingEventContract['request']['create']['body'] = {
         options: [],
         description: '一場測試的投票',

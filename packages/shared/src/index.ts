@@ -8,9 +8,6 @@ export * from './auth'
 export * from './user'
 export * from './voting-event'
 
-export * from './collection-data'
-export * from './single-data'
-
 export { defineConstants } from './define'
 export type { FlattenObject } from './flattenObject'
 export * from './utils-clone'

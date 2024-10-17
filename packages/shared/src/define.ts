@@ -9,7 +9,7 @@ interface IBaseDef {
   color?: string;
   /** Material Symbols icon 名稱 */
   iconName?: string;
-  /** 描述 */
+  /** describe */
   description?: string;
 }
 

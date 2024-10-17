@@ -20,7 +20,7 @@
           class="ml-auto flex flex-col justify-end"
         >
           <q-btn
-            label="清除搜尋"
+            label="clear search"
             color="primary"
             flat
             @click="handleSearch('')"
@@ -32,7 +32,7 @@
         >
           <q-btn
             v-if="props.visibleCreateButton"
-            label="新增"
+            label="Add"
             color="primary"
             icon="add"
             square
@@ -92,7 +92,7 @@
                     handleRefreshTableData: tableRef.requestServerInteraction,
                   })"
               >
-                <q-tooltip>編輯</q-tooltip>
+                <q-tooltip>edit</q-tooltip>
               </q-btn>
               <q-btn
                 dense
@@ -105,7 +105,7 @@
                   handleRefreshTableData: tableRef.requestServerInteraction,
                 })"
               >
-                <q-tooltip>刪除</q-tooltip>
+                <q-tooltip>delete</q-tooltip>
               </q-btn>
             </q-td>
           </template>
@@ -137,7 +137,7 @@
                   handleRefreshTableData: tableRef.requestServerInteraction,
                 })"
             >
-              <q-item-section>編輯</q-item-section>
+              <q-item-section>edit</q-item-section>
               <q-item-section avatar>
                 <q-icon
                   name="edit"
@@ -155,7 +155,7 @@
                 handleRefreshTableData: tableRef.requestServerInteraction,
               })"
             >
-              <q-item-section>刪除</q-item-section>
+              <q-item-section>delete</q-item-section>
               <q-item-section avatar>
                 <q-icon
                   name="delete"
@@ -175,14 +175,14 @@
       >
         <q-btn
           v-close-popup
-          label="取消"
+          label="Cancel"
           color="primary"
           flat
         />
 
         <q-btn
           :disable="selectedRows.length === 0"
-          :label="`確定(${selectedRows.length})`"
+          :label="`ok(${selectedRows.length})`"
           color="primary"
           square
           unelevated
@@ -193,7 +193,7 @@
       <div v-else-if="props.mode === 'view'">
         <q-btn
           v-close-popup
-          label="關閉視窗"
+          label="close"
           color="primary"
           flat
         />
@@ -223,7 +223,6 @@ interface Props {
   visibleTrashButton?: boolean;
 
   defaultCheckedIds?: string[];
-  /* 僅顯示已刪除的資料 */
   onlyShowDeleted?: boolean;
 }
 const emit = defineEmits<{
@@ -243,7 +242,6 @@ const props = withDefaults(defineProps<Props>(), {
 const votingEventApi = useVotingEventApi()
 const $q = useQuasar()
 
-/** table 的 select 多選、單選或正常 table */
 const tableSelectType = computed(() =>
   props.mode === 'multiSelect'
     ? 'multiple'
@@ -283,7 +281,6 @@ const { tableRef, columns, pagination, rows, selectedRows }
   = votingEventElement.getTableInfo(votingEventList)
 type VotingEventRow = (typeof rows.value)[number]
 
-/** 處理預設打勾 */
 watch(
   [() => props.defaultCheckedIds, () => rows.value],
   ([_defaultCheckedIds, _rows]) => {
@@ -356,32 +353,32 @@ const cols = ([
   {
     field: 'tool',
     name: 'tool',
-    label: '操作',
+    label: 'Method',
     align: 'center',
     // headerClasses: 'w-20',
   },
-  handleCol('timestamp.createdAt', '建立時間', (val: VotingEventRow['timestamp']['createdAt']) =>
+  handleCol('timestamp.createdAt', 'Created Time', (val: VotingEventRow['timestamp']['createdAt']) =>
     val ? dayjs(val).toDate().toLocaleString() : ''),
-  handleCol('timestamp', '投票狀態', (val: VotingEventRow['timestamp']) => {
+  handleCol('timestamp', 'Voting status', (val: VotingEventRow['timestamp']) => {
     const now = dayjs()
     const startAt = dayjs(val.startAt)
     const endAt = dayjs(val.endAt)
     if (now.isBefore(startAt)) {
-      return '未開始'
+      return 'not started'
     }
     if (now.isAfter(endAt)) {
-      return '已結束'
+      return 'Ended'
     }
-    return '進行中'
+    return 'in progress'
   }),
-  handleCol('title', '事件名稱'),
-  handleCol('description', '事件描述'),
-  handleCol('timestamp.startAt', '開始時間', (val: VotingEventRow['timestamp']['startAt']) =>
+  handleCol('title', 'Event name'),
+  handleCol('description', 'Event description'),
+  handleCol('timestamp.startAt', 'StartTime', (val: VotingEventRow['timestamp']['startAt']) =>
     val ? dayjs(val).toDate().toLocaleString() : ''),
-  handleCol('timestamp.endAt', '結束時間', (val: VotingEventRow['timestamp']['endAt']) =>
+  handleCol('timestamp.endAt', 'End time', (val: VotingEventRow['timestamp']['endAt']) =>
     val ? dayjs(val).toDate().toLocaleString() : ''),
-  handleCol('result.participatingHouseholds', '參與戶數'),
-  handleCol('result.participatingWeight', '參與權重'),
+  handleCol('result.participatingHouseholds', 'number of participating households'),
+  handleCol('result.participatingWeight', 'participating weight'),
 
 ] satisfies typeof columns.value)
   .sort((a, b) => (props.visibleColumns?.indexOf(a.name) ?? 0) - (props.visibleColumns?.indexOf(b.name) ?? 0)) as typeof columns.value

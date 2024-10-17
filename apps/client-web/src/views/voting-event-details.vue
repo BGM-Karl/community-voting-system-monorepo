@@ -1,14 +1,8 @@
 <template>
   <div>
-    <q-inner-loading
-      :showing="isLoading"
-      label="正在載入投票資訊"
-    />
+    <q-inner-loading :showing="isLoading" label="正在載入投票資訊" />
 
-    <div
-      v-if="isReady && votingEvent"
-      class="p-4"
-    >
+    <div v-if="isReady && votingEvent" class="p-4">
       <h1 class="text-2xl font-bold mb-4">
         {{ votingEvent.title }}
       </h1>
@@ -16,23 +10,16 @@
         {{ votingEvent.description }}
       </p>
       <div class="mb-4">
-        <q-chip
-          :color="getStatusColor(votingEvent.status)"
-          text-color="white"
-        >
+        <q-chip :color="getStatusColor(votingEvent.status)" text-color="white">
           {{ votingEvent.status }}
         </q-chip>
       </div>
       <div class="mb-4">
-        <p>開始時間: {{ formatDate(votingEvent.timestamp.startAt) }}</p>
-        <p>結束時間: {{ formatDate(votingEvent.timestamp.endAt) }}</p>
+        <p>start time: {{ formatDate(votingEvent.timestamp.startAt) }}</p>
+        <p>end time: {{ formatDate(votingEvent.timestamp.endAt) }}</p>
       </div>
-      <q-btn
-        v-if="votingEvent.status === '進行中'"
-        color="primary"
-        @click="startVoting"
-      >
-        開始投票
+      <q-btn v-if="votingEvent.status === 'In progress'" color="primary" @click="startVoting">
+        Start voting
       </q-btn>
     </div>
   </div>
@@ -66,7 +53,7 @@ const {
   isReady
 } = useAsyncState(async () => {
   const result = await getVotingEvent(votingEventId.value);
-  if (result?.status === '已結束') {
+  if (result?.status === 'Ended') {
     router.replace({
       name: RouteName.VOTING_RESULTS,
       params: { id: votingEventId.value }

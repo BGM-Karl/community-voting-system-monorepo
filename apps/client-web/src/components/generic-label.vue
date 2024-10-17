@@ -8,9 +8,7 @@
 </template>
 
 <script setup lang="ts" generic="Label">
-/**
- * 詳細說明請見：https://blog.vuejs.org/posts/vue-3-3
- */
+
 import { computed, ref } from 'vue';
 
 interface Props {

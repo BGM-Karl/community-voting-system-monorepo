@@ -58,13 +58,13 @@ export class VotingEventController {
       const [error, data] = await to(this.votingEventService.create(dto))
       // ignore coverage
       if (error) {
-        this.loggerService.error(`建立 VotingEvent 錯誤 :${error}`)
+        this.loggerService.error(`Creating VotingEvent Error :${error}`)
         this.loggerService.error(error)
 
         return {
           status: 500,
           body: {
-            message: `建立 VotingEvent 錯誤，請稍後再試 ${error}`,
+            message: `Creating VotingEvent Error. Please try again later ${error}`,
           },
         }
       }
@@ -94,13 +94,13 @@ export class VotingEventController {
       const [error, data] = await to(this.votingEventService.vote(user.id, id, dto))
       // ignore coverage
       if (error) {
-        this.loggerService.error(`投票 VotingEvent 錯誤 :${error}`)
+        this.loggerService.error(`Voting VotingEvent Error :${error}`)
         this.loggerService.error(error)
 
         return {
           status: 500,
           body: {
-            message: `投票 VotingEvent 錯誤，請稍後再試 ${error}`,
+            message: `Voting VotingEvent Error. Please try again later ${error}`,
           },
         }
       }
@@ -124,13 +124,13 @@ export class VotingEventController {
       const [error, result] = await to(this.votingEventService.find(dto))
       // ignore coverage
       if (error) {
-        this.loggerService.error(`取得所有 VotingEvent 錯誤 :`)
+        this.loggerService.error(`get all VotingEvent Error :`)
         this.loggerService.error(error)
 
         return {
           status: 500,
           body: {
-            message: '取得所有 VotingEvent 錯誤，請稍後再試',
+            message: 'get all VotingEvent Error. Please try again later',
           },
         }
       }
@@ -152,13 +152,13 @@ export class VotingEventController {
       const [error, document] = await to(this.votingEventService.findOne(id))
       // ignore coverage
       if (error) {
-        this.loggerService.error(`取得指定 VotingEvent 錯誤 :`)
+        this.loggerService.error(`Get One VotingEvent Error :`)
         this.loggerService.error(error)
 
         return {
           status: 500,
           body: {
-            message: '取得指定 VotingEvent 錯誤，請稍後再試',
+            message: 'Get One VotingEvent Error. Please try again later',
           },
         }
       }
@@ -194,13 +194,13 @@ export class VotingEventController {
       const [error, data] = await to(this.votingEventService.update(id, dto))
       // ignore coverage
       if (error) {
-        this.loggerService.error(`更新 VotingEvent 錯誤 :`)
+        this.loggerService.error(`Update VotingEvent Error :`)
         this.loggerService.error(error)
 
         return {
           status: 500,
           body: {
-            message: '更新 VotingEvent 錯誤，請稍後再試',
+            message: 'Update VotingEvent Error. Please try again later',
           },
         }
       }
@@ -236,13 +236,13 @@ export class VotingEventController {
       const [error, data] = await to(this.votingEventService.remove(id))
       // ignore coverage
       if (error) {
-        this.loggerService.error(`刪除 VotingEvent 錯誤 :`)
+        this.loggerService.error(`delete VotingEvent Error :`)
         this.loggerService.error(error)
 
         return {
           status: 500,
           body: {
-            message: '刪除 VotingEvent 錯誤，請稍後再試',
+            message: 'delete VotingEvent Error. Please try again later',
           },
         }
       }
@@ -274,13 +274,13 @@ export class VotingEventController {
       )
       // ignore coverage
       if (error) {
-        this.loggerService.error(`取得 ${id} VotingEvent Log 錯誤 :`)
+        this.loggerService.error(`get ${id} VotingEvent Log Error :`)
         this.loggerService.error(error)
 
         return {
           status: 500,
           body: {
-            message: '取得 VotingEvent Log 錯誤，請稍後再試',
+            message: 'get VotingEvent Log Error. Please try again later',
           },
         }
       }

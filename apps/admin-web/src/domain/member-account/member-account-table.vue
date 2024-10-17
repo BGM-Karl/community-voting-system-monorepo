@@ -20,7 +20,7 @@
           class="ml-auto flex flex-col justify-end"
         >
           <q-btn
-            label="清除搜尋"
+            label="Clear search"
             color="primary"
             flat
             @click="handleSearch('')"
@@ -32,7 +32,7 @@
         >
           <q-btn
             v-if="props.visibleCreateButton"
-            label="新增"
+            label="ADD"
             color="primary"
             icon="add"
             square
@@ -92,7 +92,7 @@
                     handleRefreshTableData: tableRef.requestServerInteraction,
                   })"
               >
-                <q-tooltip>編輯</q-tooltip>
+                <q-tooltip>edit</q-tooltip>
               </q-btn>
               <q-btn
                 dense
@@ -105,7 +105,7 @@
                   handleRefreshTableData: tableRef.requestServerInteraction,
                 })"
               >
-                <q-tooltip>刪除</q-tooltip>
+                <q-tooltip>delete</q-tooltip>
               </q-btn>
             </q-td>
           </template>
@@ -137,7 +137,7 @@
                   handleRefreshTableData: tableRef.requestServerInteraction,
                 })"
             >
-              <q-item-section>編輯</q-item-section>
+              <q-item-section>edit</q-item-section>
               <q-item-section avatar>
                 <q-icon
                   name="edit"
@@ -155,7 +155,7 @@
                 handleRefreshTableData: tableRef.requestServerInteraction,
               })"
             >
-              <q-item-section>刪除</q-item-section>
+              <q-item-section>delete</q-item-section>
               <q-item-section avatar>
                 <q-icon
                   name="delete"
@@ -175,7 +175,7 @@
       >
         <q-btn
           v-close-popup
-          label="取消"
+          label="Cancel"
           color="primary"
           flat
         />
@@ -224,7 +224,6 @@ interface Props {
   visibleTrashButton?: boolean;
 
   defaultCheckedIds?: string[];
-  /* 僅顯示已刪除的資料 */
   onlyShowDeleted?: boolean;
 }
 const emit = defineEmits<{
@@ -244,7 +243,6 @@ const props = withDefaults(defineProps<Props>(), {
 const memberAccountApi = useMemberAccountApi()
 const $q = useQuasar()
 
-/** table 的 select 多選、單選或正常 table */
 const tableSelectType = computed(() =>
   props.mode === 'multiSelect'
     ? 'multiple'
@@ -284,7 +282,6 @@ const { tableRef, columns, pagination, rows, selectedRows }
   = memberAccountElement.getTableInfo(memberAccountList)
 type MemberAccountRow = (typeof rows.value)[number]
 
-/** 處理預設打勾 */
 watch(
   [() => props.defaultCheckedIds, () => rows.value],
   ([_defaultCheckedIds, _rows]) => {
@@ -357,16 +354,16 @@ const cols = ([
   {
     field: 'tool',
     name: 'tool',
-    label: '操作',
+    label: 'Method',
     align: 'center',
     // headerClasses: 'w-20',
   },
-  handleCol('timestamp.createdAt', '建立時間', (val: MemberAccountRow['timestamp']['createdAt']) =>
+  handleCol('timestamp.createdAt', 'created time', (val: MemberAccountRow['timestamp']['createdAt']) =>
     val ? dayjs(val).toDate().toLocaleString() : ''),
-  handleCol('name', '住戶名稱'),
-  handleCol('username', '使用者名稱'),
-  handleCol('description', '簡介'),
-  handleCol('weight', '權重'),
+  handleCol('name', 'Household name'),
+  handleCol('username', 'username'),
+  handleCol('description', 'Introduction'),
+  handleCol('weight', 'weight'),
 
 ] satisfies typeof columns.value)
   .sort((a, b) => (props.visibleColumns?.indexOf(a.name) ?? 0) - (props.visibleColumns?.indexOf(b.name) ?? 0)) as typeof columns.value

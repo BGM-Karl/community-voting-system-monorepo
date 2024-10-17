@@ -33,7 +33,6 @@ export function useClient<T extends AppRouter>(
   })
 }
 
-/** TODO: 不成功自動拋出 Error */
 export async function useApi<
   Router extends AppRouter,
   Arg extends InitClientArgs,
