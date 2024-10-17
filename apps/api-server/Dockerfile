@@ -35,8 +35,8 @@ RUN rushx build
 WORKDIR /app/community-voting-system-monorepo/apps/api-server
 RUN rushx build
 RUN rushx build:isolate
-WORKDIR /app/community-voting-system-monorepo/apps/api-server/isolate
-RUN pnpm install --prod
+# WORKDIR /app/community-voting-system-monorepo/apps/api-server/isolate
+# RUN pnpm install
 
 
 # 第二階段: 運行應用 (Runner)
@@ -47,6 +47,9 @@ WORKDIR /app
 
 # 從 builder 階段中複製打包好的檔案到 runner
 COPY --from=builder /app/community-voting-system-monorepo/apps/api-server/isolate ./api-server
+WORKDIR /app/api-server
+RUN npm install -g pnpm
+RUN pnpm install
 
 # 暴露服務運行端口
 EXPOSE 8080
